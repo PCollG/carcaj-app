@@ -34,7 +34,12 @@ yarn-error.*
 .vscode/
 
 # local env files
+.env
 .env*.local
+
+# backend (apps/api)
+*.db
+*.db-journal
 
 # typescript
 *.tsbuildinfo

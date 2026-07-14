@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  passwordHash String
+  competitions Competition[]
+  createdAt    DateTime      @default(now())
+}
+
+model Competition {
+  id        String   @id @default(cuid())
+  name      String?
+  date      DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  rounds    Round[]
+  createdAt DateTime @default(now())
+}
+
+model Round {
+  id            String      @id @default(cuid())
+  number        Int
+  competitionId String
+  competition   Competition @relation(fields: [competitionId], references: [id])
+  arrows        Arrow[]
+}
+
+model Arrow {
+  id      String @id @default(cuid())
+  number  Int
+  score   String
+  roundId String
+  round   Round  @relation(fields: [roundId], references: [id])
+}
