@@ -30,14 +30,14 @@ model Round {
   id            String      @id @default(cuid())
   number        Int
   competitionId String
-  competition   Competition @relation(fields: [competitionId], references: [id])
+  competition   Competition @relation(fields: [competitionId], references: [id], onDelete: Cascade)
   arrows        Arrow[]
 }
 
 model Arrow {
-  id      String @id @default(cuid())
+  id      String  @id @default(cuid())
   number  Int
-  score   String
+  score   String?
   roundId String
-  round   Round  @relation(fields: [roundId], references: [id])
+  round   Round   @relation(fields: [roundId], references: [id], onDelete: Cascade)
 }
