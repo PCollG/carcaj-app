@@ -1,10 +1,12 @@
 import 'dotenv/config'
+import cors from 'cors'
 import express from 'express'
 import { authRouter } from './routes/auth.routes.js'
 import { competitionsRouter } from './routes/competitions.routes.js'
 import { requireAuth } from './middleware/auth.js'
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 
 app.get('/health', (_req, res) => {
